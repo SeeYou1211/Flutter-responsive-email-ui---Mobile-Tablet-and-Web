@@ -21,7 +21,7 @@ extension Neumorphism on Widget {
             color: bottomShadowColor,
           ),
           BoxShadow(
-            offset: Offset(-offset.dx, -offset.dx),
+            offset: Offset(-offset.dx, -offset.dy),
             blurRadius: blurRadius,
             color: topShadowColor,
           ),

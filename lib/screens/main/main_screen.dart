@@ -2,16 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:outlook/components/side_menu.dart';
 import 'package:outlook/responsive.dart';
 import 'package:outlook/screens/email/email_screen.dart';
+import 'package:outlook/models/Email.dart';
 import 'components/list_of_emails.dart';
 
+final List<Email> emails = [
+  Email(
+    image: "assets/images/user_1.png",
+    name: "John Doe",
+    subject: "Project Update",
+    body: "Here's the latest update...",
+    time: "10:42 AM",
+    isAttachmentAvailable: false,
+    isChecked: true,
+  ),
+  // Add more emails as needed
+];
+
 class MainScreen extends StatelessWidget {
+  const MainScreen({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    // It provide us the width and height
-    Size _size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Responsive(
-        // Let's work on our mobile part
         mobile: ListOfEmails(),
         tablet: Row(
           children: [
@@ -21,25 +37,23 @@ class MainScreen extends StatelessWidget {
             ),
             Expanded(
               flex: 9,
-              child: EmailScreen(),
+              child: EmailScreen(email: emails[0]),
             ),
           ],
         ),
         desktop: Row(
           children: [
-            // Once our width is less then 1300 then it start showing errors
-            // Now there is no error if our width is less then 1340
             Expanded(
-              flex: _size.width > 1340 ? 2 : 4,
+              flex: size.width > 1340 ? 2 : 4,
               child: SideMenu(),
             ),
             Expanded(
-              flex: _size.width > 1340 ? 3 : 5,
+              flex: size.width > 1340 ? 3 : 5,
               child: ListOfEmails(),
             ),
             Expanded(
-              flex: _size.width > 1340 ? 8 : 10,
-              child: EmailScreen(),
+              flex: size.width > 1340 ? 8 : 10,
+              child: EmailScreen(email: emails[0]),
             ),
           ],
         ),

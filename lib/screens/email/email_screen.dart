@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:outlook/models/Email.dart';
-import 'package:websafe_svg/websafe_svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants.dart';
 import 'components/header.dart';
 
 class EmailScreen extends StatelessWidget {
   const EmailScreen({
-    Key key,
-    this.email,
+    Key? key,
+    required this.email,
   }) : super(key: key);
 
   final Email email;
@@ -33,7 +33,7 @@ class EmailScreen extends StatelessWidget {
                       CircleAvatar(
                         maxRadius: 24,
                         backgroundColor: Colors.transparent,
-                        backgroundImage: AssetImage(emails[1].image),
+                        backgroundImage: AssetImage(emails[1].image!),
                       ),
                       SizedBox(width: kDefaultPadding),
                       Expanded(
@@ -52,14 +52,14 @@ class EmailScreen extends StatelessWidget {
                                           text: emails[1].name,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .button,
+                                              .labelLarge,
                                           children: [
                                             TextSpan(
                                                 text:
                                                     "  <elvia.atkins@gmail.com> to Jerry Torp",
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .caption),
+                                                    .bodySmall),
                                           ],
                                         ),
                                       ),
@@ -67,7 +67,7 @@ class EmailScreen extends StatelessWidget {
                                         "Inspiration for our new home",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6,
+                                            .titleLarge,
                                       )
                                     ],
                                   ),
@@ -75,7 +75,7 @@ class EmailScreen extends StatelessWidget {
                                 SizedBox(width: kDefaultPadding / 2),
                                 Text(
                                   "Today at 15:32",
-                                  style: Theme.of(context).textTheme.caption,
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],
                             ),
@@ -108,10 +108,10 @@ class EmailScreen extends StatelessWidget {
                                           "Download All",
                                           style: Theme.of(context)
                                               .textTheme
-                                              .caption,
+                                              .bodySmall,
                                         ),
                                         SizedBox(width: kDefaultPadding / 4),
-                                        WebsafeSvg.asset(
+                                        SvgPicture.asset(
                                           "assets/Icons/Download.svg",
                                           height: 16,
                                           color: kGrayColor,
@@ -122,27 +122,25 @@ class EmailScreen extends StatelessWidget {
                                     SizedBox(height: kDefaultPadding / 2),
                                     SizedBox(
                                       height: 200,
-                                      child: StaggeredGridView.countBuilder(
-                                        physics: NeverScrollableScrollPhysics(),
+                                      child: StaggeredGrid.count(
                                         crossAxisCount: 4,
-                                        itemCount: 3,
-                                        itemBuilder:
-                                            (BuildContext context, int index) =>
-                                                ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          child: Image.asset(
-                                            "assets/images/Img_$index.png",
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        staggeredTileBuilder: (int index) =>
-                                            StaggeredTile.count(
-                                          2,
-                                          index.isOdd ? 2 : 1,
-                                        ),
                                         mainAxisSpacing: kDefaultPadding,
                                         crossAxisSpacing: kDefaultPadding,
+                                        children: List.generate(3, (index) {
+                                          return StaggeredGridTile.count(
+                                            crossAxisCellCount: 2,
+                                            mainAxisCellCount:
+                                                index.isOdd ? 2 : 1,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Image.asset(
+                                                "assets/images/Img_$index.png",
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          );
+                                        }),
                                       ),
                                     )
                                   ],

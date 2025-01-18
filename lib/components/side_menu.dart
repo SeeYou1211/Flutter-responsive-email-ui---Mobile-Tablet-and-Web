@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:outlook/responsive.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
 import '../constants.dart';
 import '../extensions.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -32,22 +32,21 @@ class SideMenu extends StatelessWidget {
                     width: 46,
                   ),
                   Spacer(),
-                  // We don't want to show this close button on Desktop mood
                   if (!Responsive.isDesktop(context)) CloseButton(),
                 ],
               ),
               SizedBox(height: kDefaultPadding),
-              FlatButton.icon(
-                minWidth: double.infinity,
-                padding: EdgeInsets.symmetric(
-                  vertical: kDefaultPadding,
+              TextButton.icon(
+                style: TextButton.styleFrom(
+                  minimumSize: Size(double.infinity, 0),
+                  padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  backgroundColor: kPrimaryColor,
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                color: kPrimaryColor,
                 onPressed: () {},
-                icon: WebsafeSvg.asset("assets/Icons/Edit.svg", width: 16),
+                icon: SvgPicture.asset("assets/Icons/Edit.svg", width: 16),
                 label: Text(
                   "New message",
                   style: TextStyle(color: Colors.white),
@@ -57,24 +56,23 @@ class SideMenu extends StatelessWidget {
                 bottomShadowColor: Color(0xFF234395).withOpacity(0.2),
               ),
               SizedBox(height: kDefaultPadding),
-              FlatButton.icon(
-                minWidth: double.infinity,
-                padding: EdgeInsets.symmetric(
-                  vertical: kDefaultPadding,
+              TextButton.icon(
+                style: TextButton.styleFrom(
+                  minimumSize: Size(double.infinity, 0),
+                  padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  backgroundColor: kBgDarkColor,
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                color: kBgDarkColor,
                 onPressed: () {},
-                icon: WebsafeSvg.asset("assets/Icons/Download.svg", width: 16),
+                icon: SvgPicture.asset("assets/Icons/Download.svg", width: 16),
                 label: Text(
                   "Get messages",
                   style: TextStyle(color: kTextColor),
                 ),
               ).addNeumorphism(),
               SizedBox(height: kDefaultPadding * 2),
-              // Menu Items
               SideMenuItem(
                 press: () {},
                 title: "Inbox",
@@ -87,12 +85,14 @@ class SideMenu extends StatelessWidget {
                 title: "Sent",
                 iconSrc: "assets/Icons/Send.svg",
                 isActive: false,
+                itemCount: 0,
               ),
               SideMenuItem(
                 press: () {},
                 title: "Drafts",
                 iconSrc: "assets/Icons/File.svg",
                 isActive: false,
+                itemCount: 0,
               ),
               SideMenuItem(
                 press: () {},
@@ -100,10 +100,9 @@ class SideMenu extends StatelessWidget {
                 iconSrc: "assets/Icons/Trash.svg",
                 isActive: false,
                 showBorder: false,
+                itemCount: 0,
               ),
-
               SizedBox(height: kDefaultPadding * 2),
-              // Tags
               Tags(),
             ],
           ),

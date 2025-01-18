@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:websafe_svg/websafe_svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants.dart';
 
 class Tags extends StatelessWidget {
   const Tags({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -14,16 +14,16 @@ class Tags extends StatelessWidget {
       children: [
         Row(
           children: [
-            WebsafeSvg.asset("assets/Icons/Angle down.svg", width: 16),
+            SvgPicture.asset("assets/Icons/Angle down.svg", width: 16),
             SizedBox(width: kDefaultPadding / 4),
-            WebsafeSvg.asset("assets/Icons/Markup.svg", width: 20),
+            SvgPicture.asset("assets/Icons/Markup.svg", width: 20),
             SizedBox(width: kDefaultPadding / 2),
             Text(
               "Tags",
               style: Theme.of(context)
                   .textTheme
-                  .button
-                  .copyWith(color: kGrayColor),
+                  .labelLarge
+                  ?.copyWith(color: kGrayColor),
             ),
             Spacer(),
             MaterialButton(
@@ -48,14 +48,14 @@ class Tags extends StatelessWidget {
   }
 
   InkWell buildTag(BuildContext context,
-      {@required Color color, @required String title}) {
+      {required Color color, required String title}) {
     return InkWell(
       onTap: () {},
       child: Padding(
         padding: const EdgeInsets.fromLTRB(kDefaultPadding * 1.5, 10, 0, 10),
         child: Row(
           children: [
-            WebsafeSvg.asset(
+            SvgPicture.asset(
               "assets/Icons/Markup filled.svg",
               height: 18,
               color: color,
@@ -65,8 +65,8 @@ class Tags extends StatelessWidget {
               title,
               style: Theme.of(context)
                   .textTheme
-                  .button
-                  .copyWith(color: kGrayColor),
+                  .labelLarge
+                  ?.copyWith(color: kGrayColor),
             ),
           ],
         ),
