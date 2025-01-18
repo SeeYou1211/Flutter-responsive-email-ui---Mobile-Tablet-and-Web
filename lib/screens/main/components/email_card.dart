@@ -40,14 +40,16 @@ class EmailCard extends StatelessWidget {
                         width: 32,
                         child: CircleAvatar(
                           backgroundColor: Colors.transparent,
-                          backgroundImage: AssetImage(email.image!),
+                          backgroundImage: email.image != null
+                              ? AssetImage(email.image!)
+                              : null,
                         ),
                       ),
                       const SizedBox(width: kDefaultPadding / 2),
                       Expanded(
                         child: Text.rich(
                           TextSpan(
-                            text: "${email.name} \n",
+                            text: "${email.name ?? 'Unknown'} \n",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -55,7 +57,7 @@ class EmailCard extends StatelessWidget {
                             ),
                             children: [
                               TextSpan(
-                                text: email.subject,
+                                text: email.subject ?? 'No subject',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
@@ -71,14 +73,14 @@ class EmailCard extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            email.time!,
+                            email.time ?? '',
                             style:
                                 Theme.of(context).textTheme.bodySmall?.copyWith(
                                       color: isActive ? Colors.white70 : null,
                                     ),
                           ),
                           const SizedBox(height: 5),
-                          if (email.isAttachmentAvailable == true)
+                          if (email.isAttachmentAvailable ?? false)
                             SvgPicture.asset(
                               "assets/Icons/Paperclip.svg",
                               colorFilter: ColorFilter.mode(
@@ -92,7 +94,7 @@ class EmailCard extends StatelessWidget {
                   ),
                   const SizedBox(height: kDefaultPadding / 2),
                   Text(
-                    email.body!,
+                    email.body ?? '',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -109,7 +111,7 @@ class EmailCard extends StatelessWidget {
               topShadowColor: Colors.white60,
               bottomShadowColor: const Color(0xFF234395).withOpacity(0.15),
             ),
-            if (email.isChecked == false)
+            if (email.isChecked == false || email.isChecked == null)
               Positioned(
                 right: 8,
                 top: 8,

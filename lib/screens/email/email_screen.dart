@@ -33,7 +33,8 @@ class EmailScreen extends StatelessWidget {
                       CircleAvatar(
                         maxRadius: 24,
                         backgroundColor: Colors.transparent,
-                        backgroundImage: AssetImage(emails[1].image!),
+                        backgroundImage:
+                            AssetImage(Email.getEmails(context)[1].image!),
                       ),
                       SizedBox(width: kDefaultPadding),
                       Expanded(
@@ -49,14 +50,14 @@ class EmailScreen extends StatelessWidget {
                                     children: [
                                       Text.rich(
                                         TextSpan(
-                                          text: emails[1].name,
+                                          text:
+                                              Email.getEmails(context)[1].name,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelLarge,
                                           children: [
                                             TextSpan(
-                                                text:
-                                                    "  <elvia.atkins@gmail.com> to Jerry Torp",
+                                                text: ' <email@example.com>',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodySmall),
@@ -64,7 +65,7 @@ class EmailScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        "Inspiration for our new home",
+                                        email.subject ?? 'No Subject',
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge,
@@ -74,8 +75,8 @@ class EmailScreen extends StatelessWidget {
                                 ),
                                 SizedBox(width: kDefaultPadding / 2),
                                 Text(
-                                  "Today at 15:32",
-                                  style: Theme.of(context).textTheme.bodySmall,
+                                  email.subject ?? 'No Subject',
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
                               ],
                             ),
@@ -89,7 +90,7 @@ class EmailScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Hello my love, \n \nSunt architecto voluptatum esse tempora sint nihil minus incidunt nisi. Perspiciatis natus quo unde magnam numquam pariatur amet ut. Perspiciatis ab totam. Ut labore maxime provident. Voluptate ea omnis et ipsum asperiores laborum repellat explicabo fuga. Dolore voluptatem praesentium quis eos laborum dolores cupiditate nemo labore. \n \nLove you, \n\nElvia",
+                                      email.body ?? '',
                                       style: TextStyle(
                                         height: 1.5,
                                         color: Color(0xFF4D5875),
@@ -100,12 +101,14 @@ class EmailScreen extends StatelessWidget {
                                     Row(
                                       children: [
                                         Text(
-                                          "6 attachments",
-                                          style: TextStyle(fontSize: 12),
+                                          email.body ?? '',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium,
                                         ),
                                         Spacer(),
                                         Text(
-                                          "Download All",
+                                          'Download All',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall,

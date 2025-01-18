@@ -1,0 +1,22 @@
+flutter:
+  assets:
+    - assets/Icons/
+    - assets/images/
+    - assets/fonts/
+    - lib/l10n/
+
+  fonts:
+    - family: NotoSansSC
+      fonts:
+        - asset: assets/fonts/Noto_Sans_SC/NotoSansSC-VariableFont_wght.ttf
+          weight: 500
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf
+          weight: 400
+
+  generate: true
+
+output:
+  path: lib/gen/
+  class_name: AppGen
